@@ -23,23 +23,23 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Input = (EditText) findViewById(R.id.Input);
         Text = (TextView) findViewById(R.id.Text);
-        ProfilHandler = new ProfilHandler(this,null,null,1);
+        DatabaseHandler = new DatabaseHandler(this,null,null,1);
         printDatabase();
     }
     public void addButtonClicked(View view)  {
     Profil  profil = new Profil(Input.getText().toString());
-        DatabaseHandler.addItem(profil);
+        ProfilHandler.addItem(profil);
         printDatabase();
     }
     public void deleteButtonClicked(View view) {
         String input = Input.getText().toString();
-        DatabaseHandler.deleteItem(input);
+        ProfilHandler.deleteItem(input);
         printDatabase();
 
     }
 
     public void printDatabase() {
-        String dbString = DatabaseHandler.databaseToString();
+        String dbString = ProfilHandler.databaseToString();
         Text.setText(dbString);
         Input.setText("");
 

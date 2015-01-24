@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.lang.Object;
 
 
-public abstract class DatabaseHandler extends SQLiteOpenHelper {
+public  class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME  = "wificounter.db";
@@ -33,13 +33,13 @@ public abstract class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String profil =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, name TEXT, ssid TEXT, gssid TEXT);";
+        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, name TEXT, ssid TEXT, gssid TEXT);";
         String history = "CREATE TABLE " + TABLE_HISTORY + "(" + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT" + DATE + "TEXT"
                 + TIME_CONNECTION + "INTEGER"
                 + "_id_profile" + "INTEGER" + "FOREIGN KEY REFERENCES" + PROFILE_NAME + "(_id_profile)"  + ");";
 
 
-        db.execSQL(profil);
+        db.execSQL(profile);
         db.execSQL(history);
     }
 
@@ -51,9 +51,6 @@ public abstract class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public abstract void addItem(Object object);
-    public abstract void deleteItem(Object object);
-    public abstract String databaseToString();
 
 
 }

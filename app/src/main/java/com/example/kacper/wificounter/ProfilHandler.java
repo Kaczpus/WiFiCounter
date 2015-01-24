@@ -13,7 +13,7 @@ public class ProfilHandler  extends DatabaseHandler {
     public ProfilHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
-    @Override
+
     public void addItem(Object object) {
 
         ContentValues values = new ContentValues();
@@ -23,13 +23,13 @@ public class ProfilHandler  extends DatabaseHandler {
         db.close();
     }
 
-    @Override
+
     public void deleteItem(Object historyDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_PROFILE + "WHERE " + PROFILE_NAME + "=\"" + (String) historyDate + "\";");
     }
 
-    @Override
+
     public String databaseToString() {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();

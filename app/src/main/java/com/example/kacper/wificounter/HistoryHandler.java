@@ -12,7 +12,7 @@ import java.lang.Object;
 
 public class HistoryHandler  extends DatabaseHandler{
 
-    @Override
+
     public void addItem(Object object){
 
         ContentValues values = new ContentValues();
@@ -21,12 +21,12 @@ public class HistoryHandler  extends DatabaseHandler{
         db.insert(TABLE_HISTORY,null,values);
         db.close();
     }
-    @Override
+
     public void deleteItem(Object historyDate){
         SQLiteDatabase db =getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_HISTORY + "WHERE " + DATE + "=\"" + (String)historyDate + "\";");
     }
-    @Override
+
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
@@ -48,6 +48,7 @@ public class HistoryHandler  extends DatabaseHandler{
         db.close();
         return dbString;
     }
+
    public HistoryHandler(Context context){
        super(context);
 
