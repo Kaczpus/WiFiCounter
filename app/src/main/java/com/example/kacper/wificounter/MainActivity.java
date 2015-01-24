@@ -1,5 +1,6 @@
 package com.example.kacper.wificounter;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ public class MainActivity extends ActionBarActivity {
 
     EditText Input;
     TextView Text;
-    DatabaseHandler DatabaseHandler;
     ProfilHandler ProfilHandler;
 
 
@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Input = (EditText) findViewById(R.id.Input);
         Text = (TextView) findViewById(R.id.Text);
-        DatabaseHandler = new DatabaseHandler(this,null,null,1);
+        ProfilHandler = new ProfilHandler(getBaseContext());
         printDatabase();
     }
     public void addButtonClicked(View view)  {

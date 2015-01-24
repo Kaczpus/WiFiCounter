@@ -10,10 +10,23 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class ProfilHandler  extends DatabaseHandler {
 
-    public ProfilHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT, gssid TEXT);";
+       /* String history = "CREATE TABLE " + TABLE_HISTORY + "(" + COLUMN_ID + "INTEGER PRIMARY KEY " + DATE + "TEXT , "
+                + TIME_CONNECTION + " , " + " INTEGER, "
+                + " _id_profile " + " INTEGER, " + " FOREIGN KEY REFERENCES " + PROFILE_NAME + " (_id_profile) "  + " ); ";
+*/
+
+        db.execSQL(profile);
+        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references Profile (_id))");
     }
 
+    public ProfilHandler(Context context)
+    {
+        super(context);
+    }
+    @Override
     public void addItem(Object object) {
 
         ContentValues values = new ContentValues();
@@ -23,20 +36,22 @@ public class ProfilHandler  extends DatabaseHandler {
         db.close();
     }
 
+    @Override
 
     public void deleteItem(Object historyDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_PROFILE + "WHERE " + PROFILE_NAME + "=\"" + (String) historyDate + "\";");
     }
 
+    @Override
 
     public String databaseToString() {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_PROFILE + " WHERE 1";
+        //String query = "SELECT * FROM " + TABLE_PROFILE + " WHERE 1";
 
         //Cursor points to a location in your results
-        Cursor c = db.rawQuery(query, null);
+        Cursor c = db.rawQuery("SELECT * FROM"  + TABLE_PROFILE +  "WHERE 1",null);
         //Move to the first row in your results
         c.moveToFirst();
 
@@ -52,8 +67,12 @@ public class ProfilHandler  extends DatabaseHandler {
         return dbString;
     }
 
-    public ProfilHandler(Context context) {
-        super(context);
 
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILE);
+        onCreate(db);
     }
 }

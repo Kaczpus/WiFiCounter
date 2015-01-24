@@ -12,7 +12,11 @@ import java.lang.Object;
 
 public class HistoryHandler  extends DatabaseHandler{
 
-
+    public HistoryHandler(Context context)
+    {
+        super(context);
+    }
+    @Override
     public void addItem(Object object){
 
         ContentValues values = new ContentValues();
@@ -21,12 +25,12 @@ public class HistoryHandler  extends DatabaseHandler{
         db.insert(TABLE_HISTORY,null,values);
         db.close();
     }
-
+    @Override
     public void deleteItem(Object historyDate){
         SQLiteDatabase db =getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_HISTORY + "WHERE " + DATE + "=\"" + (String)historyDate + "\";");
     }
-
+    @Override
     public String databaseToString(){
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
@@ -49,9 +53,25 @@ public class HistoryHandler  extends DatabaseHandler{
         return dbString;
     }
 
-   public HistoryHandler(Context context){
-       super(context);
+    @Override
 
-   }
+    public void onCreate(SQLiteDatabase db) {
+        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT, gssid TEXT);";
+       /* String history = "CREATE TABLE " + TABLE_HISTORY + "(" + COLUMN_ID + "INTEGER PRIMARY KEY " + DATE + "TEXT , "
+                + TIME_CONNECTION + " , " + " INTEGER, "
+                + " _id_profile " + " INTEGER, " + " FOREIGN KEY REFERENCES " + PROFILE_NAME + " (_id_profile) "  + " ); ";
+*/
+
+        db.execSQL(profile);
+        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references Profile (_id))");
+    }
+
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILE);
+        onCreate(db);
+    }
 
 }
