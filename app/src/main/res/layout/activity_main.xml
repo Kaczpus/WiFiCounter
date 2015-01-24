@@ -1,18 +1,47 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" >
-    <EditText android:id="@+id/edit_message"
-        android:layout_width="0dp"
+
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
-        android:layout_weight="1"/>
+        android:id="@+id/Input"
+        android:layout_marginTop="77dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:width="300dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send"
-        android:onClick="sendMessage"/>
+        android:text="Add"
+        android:id="@+id/addButton"
+        android:layout_below="@+id/Input"
+        android:layout_alignLeft="@+id/Input"
+        android:layout_alignStart="@+id/Input"
+        android:layout_marginTop="60dp"
+        android:onClick="addButtonClicked" />
 
-</LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/delete"
+        android:layout_alignBottom="@+id/addButton"
+        android:layout_alignRight="@+id/Input"
+        android:layout_alignEnd="@+id/Input"
+        android:onClick="deleteButtonClicked" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/Text"
+        android:layout_below="@+id/delete"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp" />
+
+</RelativeLayout>
