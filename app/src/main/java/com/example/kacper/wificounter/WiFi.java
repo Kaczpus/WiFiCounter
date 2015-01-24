@@ -11,7 +11,8 @@ public class WiFi {
 
     WifiManager wifiManager;
     WifiInfo wifiInfo;
-    String WifiName;
+    String WifiSSID;
+    String WifiBSSID;
     public WiFi(Context context)
     {
         wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
@@ -33,9 +34,25 @@ public class WiFi {
         if(wifiManager.isWifiEnabled())
         {
             wifiInfo = wifiManager.getConnectionInfo();
-            WifiName = wifiInfo.getSSID();
+            WifiSSID = wifiInfo.getSSID();
 
-            return WifiName;
+            return WifiSSID;
+        }
+
+        else
+        {
+            return "Please enable WiFi first";
+        }
+    }
+
+    public String getWiFiBSSID()
+    {
+        if(wifiManager.isWifiEnabled())
+        {
+            wifiInfo = wifiManager.getConnectionInfo();
+            WifiBSSID = wifiInfo.getBSSID();
+
+            return WifiBSSID;
         }
 
         else
