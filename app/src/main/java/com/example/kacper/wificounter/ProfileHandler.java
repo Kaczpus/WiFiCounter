@@ -4,11 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by Kacper on 2015-01-18.
  */
-public class ProfilHandler  extends DatabaseHandler {
+public class ProfileHandler extends DatabaseHandler {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -22,7 +23,7 @@ public class ProfilHandler  extends DatabaseHandler {
         db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references Profile (_id))");
     }
 
-    public ProfilHandler(Context context)
+    public ProfileHandler(Context context)
     {
         super(context);
     }
@@ -30,7 +31,7 @@ public class ProfilHandler  extends DatabaseHandler {
     public void addItem(Object object) {
 
         ContentValues values = new ContentValues();
-        values.put(PROFILE_NAME, ((Profil) object).get_profilname());
+        values.put(PROFILE_NAME, ((Profile) object).get_profilname());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_PROFILE, null, values);
         db.close();
@@ -75,4 +76,6 @@ public class ProfilHandler  extends DatabaseHandler {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILE);
         onCreate(db);
     }
+
+
 }
