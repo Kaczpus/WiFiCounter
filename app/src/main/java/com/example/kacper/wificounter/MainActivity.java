@@ -45,7 +45,7 @@ public class MainActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                    Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
+                    Intent myIntent = new Intent(view.getContext(), ProfileActivity.class);
                     Profile profile =  new Profile();
 
                     profile.set_profilname("profile");
@@ -73,7 +73,6 @@ public class MainActivity extends ListActivity {
         alert.setView(input);
 
         alert.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 String value = input.getText().toString();
                 Profile profile = new Profile(value);
