@@ -20,7 +20,7 @@ public class HistoryHandler  extends DatabaseHandler{
     public void addItem(Object object){
 
         ContentValues values = new ContentValues();
-       values.put(DATE,((History) object).getDate());
+        values.put(DATE,((History) object).getDate());
         SQLiteDatabase db =getWritableDatabase();
         db.insert(TABLE_HISTORY,null,values);
         db.close();
