@@ -1,5 +1,8 @@
 package com.example.kacper.wificounter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Calendar;
 
 /**
@@ -22,6 +25,17 @@ public class Timer {
         countingStart = Calendar.getInstance();
     }
 
+    public void setCountingStart(long milis)
+    {
+        countingStart = Calendar.getInstance();
+        countingStart.setTimeInMillis(milis);
+    }
+
+    public long getMilisCountingStart()
+    {
+        return countingStart.getTimeInMillis();
+    }
+
     public String countingStartToString()
     {
         int minutes = countingStart.get(Calendar.MINUTE);
@@ -38,7 +52,16 @@ public class Timer {
 
     }
 
-    public String getElapsedTime()
+    public long getElapsedTime()
+    {
+        Calendar newTime = Calendar.getInstance();
+
+        long milisDiff = newTime.getTimeInMillis() - countingStart.getTimeInMillis();
+
+        return milisDiff;
+    }
+
+    public String ElapsedTimeToString()
     {
         Calendar newTime = Calendar.getInstance();
 
@@ -53,6 +76,8 @@ public class Timer {
 
         return Long.toString(hours) + "h "  + Long.toString(minutes) + "min " + Long.toString(seconds) + "s elapsed";
     }
+
+
 
 
 }
