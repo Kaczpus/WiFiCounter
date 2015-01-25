@@ -3,7 +3,7 @@ package com.example.kacper.wificounter;
 import java.util.Calendar;
 
 /**
- * Created by Kacper on 2015-01-18.
+ * Created by Kacper on 2015-01-18...
  */
 public class Timer {
 
