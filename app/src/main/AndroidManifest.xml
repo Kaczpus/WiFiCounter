@@ -33,6 +33,10 @@
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" >
         </activity>
+
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"></activity>
     </application>
 
 </manifest>
