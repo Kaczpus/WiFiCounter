@@ -67,7 +67,7 @@ public class ProfileActivity extends ActionBarActivity {
         Log.d(TAG,"ON RESUME!!!!!!!");
 
         prefs = getSharedPreferences(prefName,MODE_PRIVATE);
-        long milis = prefs.getLong("milisStart",5);
+        long milis = prefs.getLong("milisStart",timer.getMilisCountingStart());
         timer.setCountingStart(milis);
         startTimerText = (TextView) findViewById(R.id.timerStartText);
         timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
