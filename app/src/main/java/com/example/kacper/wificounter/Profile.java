@@ -3,7 +3,7 @@ package com.example.kacper.wificounter;
 /**
  * Created by Kacper on 2015-01-18.
  */
-public class Profil {
+public class Profile {
 
     private int _id;
     private String _profilname;
@@ -24,11 +24,11 @@ public class Profil {
         this._profilname = _profilname;
     }
 
-    public Profil(String profilname) {
+    public Profile(String profilname) {
         this._profilname = profilname;
     }
 
-    public Profil() {}
+    public Profile() {}
 
 
 }

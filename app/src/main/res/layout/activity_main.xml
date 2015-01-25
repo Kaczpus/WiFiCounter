@@ -10,9 +10,9 @@
         android:width="300dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/addButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
 
     <Button
         android:text="Add"
@@ -20,10 +20,10 @@
         android:onClick="addButtonClicked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:layout_below="@+id/Input"
-        android:layout_alignLeft="@+id/Input"
-        android:layout_alignStart="@+id/Input" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="34dp" />
 
     <Button
         android:text="Delete"
@@ -41,7 +41,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/Input"
         android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_toStartOf="@+id/deleteButton"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/Text"
+        android:layout_alignRight="@+id/Input"
+        android:layout_alignEnd="@+id/Input" />
 
 </RelativeLayout>
