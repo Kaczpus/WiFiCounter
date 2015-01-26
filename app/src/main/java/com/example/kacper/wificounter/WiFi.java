@@ -16,7 +16,7 @@ public class WiFi {
     public WiFi(Context context)
     {
         wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        if(!isWiFiConnected()) connectToWiFi();
+        //if(!isWiFiConnected()) connectToWiFi();
 
     }
 

@@ -1,7 +1,11 @@
 package com.example.kacper.wificounter;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class ProfileActivity extends ActionBarActivity {
@@ -25,26 +31,178 @@ public class ProfileActivity extends ActionBarActivity {
     String defSSID;
     Intent serviceIntent;
     Timer timer;
-
+    HistoryHandler historyHandler;
     SharedPreferences prefs;
     String prefName = "MyPref";
     String STARTTIME = "starttime";
+
+    boolean hasServiceStarted = false;
+    boolean canSaveHistory;
+
     private static final String TAG = "MyActivity";
 
-    @Override
+   /* @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         Log.d(TAG, "In onsave");
         savedInstanceState.putLong("starttime", timer.getMilisCountingStart());
         super.onSaveInstanceState(savedInstanceState);
+    }*/
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+        Log.d(TAG, "ON CREATE!!!!!!!!!!!!");
+        wifi = new WiFi(this);
+        timer = new Timer();
+        historyHandler = new HistoryHandler(this);
+
+
+
+        wifiName = (TextView)findViewById(R.id.wifiNameText);
+        conInfo = (TextView)findViewById(R.id.connInfoText);
+        startTimerText = (TextView) findViewById(R.id.timerStartText);
+        timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
+
+        wifiName.setText(wifi.getWiFiSSID());
+
+        defSSID = wifi.getWiFiSSID();
+
+        if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
+        {
+            conInfo.setText("Connected!");
+            canSaveHistory = true;
+            if(timer.countingStart==null)
+            {
+                timer.setStartTime();
+                startTimerText.setText(timer.countingStartToString());
+                timeElapsedText.setText(timer.ElapsedTimeToString());
+            }
+            else {startTimerText.setText(timer.countingStartToString());
+                timeElapsedText.setText(timer.ElapsedTimeToString());}
+
+            if(!hasServiceStarted && wifi.isWiFiConnected())
+            {
+                startService(new Intent(getBaseContext(), WifiService.class));
+            registerReceiver(broadcastReceiver, new IntentFilter(WifiService.BROADCAST_ACTION));
+            hasServiceStarted = true;
+            }
+
+
+        }
+        else
+        {
+            conInfo.setText("WiFI is offline");
+            timeElapsedText.setText("Timer stopped");
+            startTimerText.setText("Starting datetime");
+        }
+
     }
 
-   /* @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
 
-        Log.d(TAG, "In RESTORE MODE MOTHERFUCKER");
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Receiving broadcast");
+            stopCounting(intent);
+        }
+    };
+
+    public void stopCounting(Intent intent)
+    {
+        conInfo = (TextView)findViewById(R.id.connInfoText);
+        startTimerText = (TextView)findViewById(R.id.timerStartText);
+        timeElapsedText = (TextView)findViewById(R.id.TimeElapsed);
+
+        if(intent.getBooleanExtra("iswifioff",false))
+        {
+            conInfo.setText("WiFI is offline");
+
+            timeElapsedText.setText("Timer stopped");
+            startTimerText.setText("Starting datetime");
 
 
+            //stopWifiService();
+            //shit to make history happen
+            if(canSaveHistory)
+            {
+                Toast.makeText(getApplicationContext(), "Saving to history...", Toast.LENGTH_SHORT).show();
+            }
+            canSaveHistory = false;
+            hasServiceStarted = false;
+
+            prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.commit();
+
+            timer.clearCountingStart();
+
+
+
+
+        }
+    }
+
+    //not used
+   /* public void stopWifiService()
+    {
+        unregisterReceiver(broadcastReceiver);
+        stopService(serviceIntent);
     }*/
+
+
+    public void refresh(View view)
+    {
+        wifiName = (TextView)findViewById(R.id.wifiNameText);
+        conInfo = (TextView)findViewById(R.id.connInfoText);
+        startTimerText = (TextView) findViewById(R.id.timerStartText);
+        timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
+        wifiName.setText(wifi.getWiFiSSID());
+        defSSID = wifi.getWiFiSSID();
+        if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
+        {
+            conInfo.setText("Connected!");
+            canSaveHistory = true;
+            if(timer.countingStart==null)
+            {
+                timer.setStartTime();
+                startTimerText.setText(timer.countingStartToString());
+                timeElapsedText.setText(timer.ElapsedTimeToString());
+
+        }
+            else {startTimerText.setText(timer.countingStartToString());
+                timeElapsedText.setText(timer.ElapsedTimeToString());}
+
+            if(!hasServiceStarted && wifi.isWiFiConnected())
+            {
+                startService(new Intent(getBaseContext(), WifiService.class));
+                registerReceiver(broadcastReceiver, new IntentFilter(WifiService.BROADCAST_ACTION));
+                hasServiceStarted = true;
+            }
+
+
+        }
+        else
+        {
+            conInfo.setText("WiFI is offline");
+            timeElapsedText.setText("Timer stopped");
+            startTimerText.setText("Starting datetime");
+        }
+
+    }
+
+//zrobie pare niepotrzebnych linijek zeby bylo wiecej w rankingu
+
+
+
+
+
+
+
+
+    ///o wlasnie
 
 
     @Override
@@ -52,10 +210,12 @@ public class ProfileActivity extends ActionBarActivity {
     {
         super.onPause();
         Log.d(TAG,"ON RESUME!!!!!!!");
-        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong("milisStart",timer.getMilisCountingStart());
-        editor.commit();
+        if(hasServiceStarted) {
+            prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong("milisStart", timer.getMilisCountingStart());
+            editor.commit();
+        }
 
     }
 
@@ -65,14 +225,14 @@ public class ProfileActivity extends ActionBarActivity {
     {
         super.onResume();
         Log.d(TAG,"ON RESUME!!!!!!!");
-
+        if(hasServiceStarted){
         prefs = getSharedPreferences(prefName,MODE_PRIVATE);
         long milis = prefs.getLong("milisStart",timer.getMilisCountingStart());
         timer.setCountingStart(milis);
         startTimerText = (TextView) findViewById(R.id.timerStartText);
         timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
         startTimerText.setText(timer.countingStartToString());
-        timeElapsedText.setText(timer.ElapsedTimeToString());
+        timeElapsedText.setText(timer.ElapsedTimeToString());}
     }
 
     @Override
@@ -88,81 +248,6 @@ public class ProfileActivity extends ActionBarActivity {
         super.onDestroy();
         Log.d(TAG,"ON DESTROY!!!!!!!");
     }
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        Log.d(TAG, "ON CREATE!!!!!!!!!!!!");
-        wifi = new WiFi(this);
-        timer = new Timer();
-
-        /*if (savedInstanceState != null)
-        {
-            timer.setCountingStart(savedInstanceState.getLong("starttime"));
-        }*/
-
-
-
-
-        wifiName = (TextView)findViewById(R.id.wifiNameText);
-        conInfo = (TextView)findViewById(R.id.connInfoText);
-        startTimerText = (TextView) findViewById(R.id.timerStartText);
-        timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
-
-        wifiName.setText(wifi.getWiFiSSID());
-
-        defSSID = wifi.getWiFiSSID();
-
-        if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected()) {
-            conInfo.setText("Connected!");
-            if(timer.countingStart==null)
-            {
-                timer.setStartTime();
-                startTimerText.setText(timer.countingStartToString());
-            }
-            else startTimerText.setText(timer.countingStartToString());
-
-
-        }
-        else conInfo.setText("Can't connect to this Wi-Fi");
-
-
-
-
-    }
-
-    public void refresh(View view)
-    {
-        wifiName = (TextView)findViewById(R.id.wifiNameText);
-        conInfo = (TextView)findViewById(R.id.connInfoText);
-        startTimerText = (TextView) findViewById(R.id.timerStartText);
-        timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
-        wifiName.setText(wifi.getWiFiSSID());
-        defSSID = wifi.getWiFiSSID();
-        if(defSSID.equals(wifi.getWiFiSSID())) {
-            conInfo.setText("Connected!");
-            if(timer.countingStart==null)
-            {
-                timer.setStartTime();
-                startTimerText.setText(timer.countingStartToString());
-
-            }
-            else
-            {
-
-                timeElapsedText.setText(timer.ElapsedTimeToString());
-            }
-
-
-
-        }
-        else conInfo.setText("Can't connect to this Wi-Fi");
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -10,19 +10,26 @@ import java.util.Calendar;
  */
 public class Timer {
 
-
-    //w activity getujemy profil wyslany w intent
-
     Calendar countingStart;
-
+    boolean started;
     public Timer()
     {
-        //countingStart = Calendar.getInstance();
+        started = false;
     }
 
     public void setStartTime()
     {
-        countingStart = Calendar.getInstance();
+        if(started==false)
+        {
+            countingStart = Calendar.getInstance();
+            started = true;
+        }
+    }
+
+    public void clearCountingStart()
+    {
+        countingStart = null;
+        started = false;
     }
 
     public void setCountingStart(long milis)
