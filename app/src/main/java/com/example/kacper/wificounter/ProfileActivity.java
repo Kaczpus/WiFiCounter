@@ -51,6 +51,11 @@ public class ProfileActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Intent intent = getIntent();
+        //String message = intent.getObject(MyActivity.EXTRA_MESSAGE);
+
+
         setContentView(R.layout.activity_profile);
         Log.d(TAG, "ON CREATE!!!!!!!!!!!!");
         wifi = new WiFi(this);
