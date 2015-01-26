@@ -37,7 +37,7 @@ public class MainActivity extends ListActivity {
         Input.setText("");*/
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, result));
-        ListView lv = getListView();
+        final ListView lv = getListView();
 
         lv.setTextFilterEnabled(true);
 
@@ -49,11 +49,11 @@ public class MainActivity extends ListActivity {
                     // Profile item = (Profile) parent.getSelectedItem();
 
                    // Profile Item = (Profile) parent.getItemAtPosition(position);
-                    int a = getSelectedItemPosition();
-                    parent.getItemAtPosition(a);
-                    myIntent.putExtra("profile",parent.getItemIdAtPosition(a));
+                    //int a = getSelectedItemPosition();
+                    String profileName =  lv.getItemAtPosition(position).toString();
+                    myIntent.putExtra("profile",profileName);
 
-                    startActivityForResult(myIntent, 0);
+                    startActivity(myIntent);
 
             }
         });

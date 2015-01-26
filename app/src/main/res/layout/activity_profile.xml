@@ -64,10 +64,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Wi-Fi off"
         android:id="@+id/timerStartText"
+        android:layout_marginTop="73dp"
         android:layout_below="@+id/refreshButton"
-        android:layout_toLeftOf="@+id/profileTextView"
-        android:layout_toStartOf="@+id/profileTextView"
-        android:layout_marginTop="129dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,11 +78,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="0 minutes"
         android:id="@+id/TimeElapsed"
-        android:layout_alignTop="@+id/timerStartText"
-        android:layout_alignBottom="@+id/timerStartText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/refreshButton"
-        android:layout_alignStart="@+id/refreshButton" />
+        android:layout_below="@+id/timerStartText"
+        android:layout_marginTop="27dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/timerStartText"
+        android:layout_alignEnd="@+id/timerStartText"
+        android:gravity="center" />
 
 </RelativeLayout>
