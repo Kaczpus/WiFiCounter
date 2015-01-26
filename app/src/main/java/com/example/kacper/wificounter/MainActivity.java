@@ -46,11 +46,13 @@ public class MainActivity extends ListActivity {
                                     int position, long id) {
 
                     Intent myIntent = new Intent(view.getContext(), ProfileActivity.class);
-                    Profile profile =  new Profile();
+                    // Profile item = (Profile) parent.getSelectedItem();
 
-                    profile.set_profilname("profile");
-                    profile.set_id(1);
-                    myIntent.putExtra("profile",profile.get_id());
+                   // Profile Item = (Profile) parent.getItemAtPosition(position);
+                    int a = getSelectedItemPosition();
+                    parent.getItemAtPosition(a);
+                    myIntent.putExtra("profile",parent.getItemIdAtPosition(a));
+
                     startActivityForResult(myIntent, 0);
 
             }
