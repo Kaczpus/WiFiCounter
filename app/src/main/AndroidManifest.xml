@@ -36,9 +36,8 @@
 
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile">
-
-            </activity>
+            android:label="@string/title_activity_profile"></activity>
+        <service android:name=".WifiService" />
     </application>
 
 </manifest>
