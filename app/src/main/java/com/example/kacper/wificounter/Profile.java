@@ -7,6 +7,24 @@ public class Profile {
 
     private int _id;
     private String _profilname;
+    private String ssid;
+    private String bssid;
+
+    public String getSsid() {
+        return ssid;
+    }
+
+    public void setSsid(String ssid) {
+        this.ssid = ssid;
+    }
+
+    public String getBssid() {
+        return bssid;
+    }
+
+    public void setBssid(String bssid) {
+        this.bssid = bssid;
+    }
 
     public int get_id() {
         return _id;

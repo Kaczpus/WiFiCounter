@@ -45,12 +45,14 @@ public class MainActivity extends ListActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                    Intent myIntent = new Intent(view.getContext(), SecondActivity.class);
-                    Profile profile =  new Profile();
+                    Intent myIntent = new Intent(view.getContext(), ProfileActivity.class);
+                    // Profile item = (Profile) parent.getSelectedItem();
 
-                    profile.set_profilname("profile");
-                    profile.set_id(1);
-                    myIntent.putExtra("profile",profile.get_id());
+                   // Profile Item = (Profile) parent.getItemAtPosition(position);
+                    int a = getSelectedItemPosition();
+                    parent.getItemAtPosition(a);
+                    myIntent.putExtra("profile",parent.getItemIdAtPosition(a));
+
                     startActivityForResult(myIntent, 0);
 
             }
@@ -73,7 +75,6 @@ public class MainActivity extends ListActivity {
         alert.setView(input);
 
         alert.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 String value = input.getText().toString();
                 Profile profile = new Profile(value);
