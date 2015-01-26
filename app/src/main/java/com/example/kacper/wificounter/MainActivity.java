@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,9 +71,21 @@ public class MainActivity extends ListActivity {
 
         alert.setTitle("Adding");
         alert.setMessage("Please enter name of your profile");
+        LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.addbuttonlayout,null);
 
-        final EditText input = new EditText(this);
-        alert.setView(input);
+        alert.setView(layout);
+        final EditText input=(EditText)layout.findViewById(R.id.editText);
+        final EditText ourwifi=(EditText)layout.findViewById(R.id.editText2);
+        WiFi wifi = new WiFi(this);
+        ourwifi.setText(wifi.getWiFiSSID());
+       /* final EditText wifi = new EditText(this);
+
+        WiFi ourwifi = new WiFi(this);
+        String text = ourwifi.getWiFiSSID();
+        wifi.setText(text);*/
+
+
 
         alert.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
