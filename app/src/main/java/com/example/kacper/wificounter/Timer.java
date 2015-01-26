@@ -81,7 +81,10 @@ public class Timer {
         seconds %= 60;
         minutes %= 60;
 
-        return Long.toString(hours) + "h "  + Long.toString(minutes) + "min " + Long.toString(seconds) + "s elapsed";
+        String string_lol = Long.toString(hours) + "h "  + Long.toString(minutes) + "min " + Long.toString(seconds) + "s elapsed";
+
+        if(string_lol.isEmpty()) return "Exception string";
+        else return string_lol;
     }
 
 
