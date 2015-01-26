@@ -52,8 +52,8 @@ public class ProfileActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Intent intent = getIntent();
-        //String message = intent.getObject(MyActivity.EXTRA_MESSAGE);
+        Intent intent = getIntent();
+        String intentProfileText = intent.getStringExtra("profile");
 
 
         setContentView(R.layout.activity_profile);
@@ -63,12 +63,14 @@ public class ProfileActivity extends ActionBarActivity {
         historyHandler = new HistoryHandler(this);
 
 
-
+        profileName = (TextView)findViewById(R.id.profileTextView);
         wifiName = (TextView)findViewById(R.id.wifiNameText);
         conInfo = (TextView)findViewById(R.id.connInfoText);
         startTimerText = (TextView) findViewById(R.id.timerStartText);
         timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
 
+
+        profileName.setText(intentProfileText);
         wifiName.setText(wifi.getWiFiSSID());
 
         defSSID = wifi.getWiFiSSID();
@@ -122,11 +124,6 @@ public class ProfileActivity extends ActionBarActivity {
 
         if(intent.getBooleanExtra("iswifioff",false))
         {
-            conInfo.setText("WiFI is offline");
-
-            timeElapsedText.setText("Timer stopped");
-            startTimerText.setText("Starting datetime");
-
 
             //stopWifiService();
             //shit to make history happen
@@ -134,6 +131,13 @@ public class ProfileActivity extends ActionBarActivity {
             {
                 Toast.makeText(getApplicationContext(), "Saving to history...", Toast.LENGTH_SHORT).show();
             }
+
+            conInfo.setText("WiFI is offline");
+
+            timeElapsedText.setText("Timer stopped");
+            startTimerText.setText("Starting datetime");
+
+
             canSaveHistory = false;
             hasServiceStarted = false;
 
