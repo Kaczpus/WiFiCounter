@@ -38,10 +38,11 @@
         android:layout_alignStart="@+id/wifiNameText" />
 
     <Button
+        android:onClick="HistButtonClicked"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile&apos;s history"
-        android:id="@+id/button"
+        android:id="@+id/Hist"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp" />

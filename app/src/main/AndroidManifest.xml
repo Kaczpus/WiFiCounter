@@ -33,11 +33,16 @@
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" >
         </activity>
-
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"></activity>
+            android:label="@string/title_activity_profile" />
+
         <service android:name=".WifiService" />
+
+        <activity
+            android:name=".HistoryAcitivity"
+            android:label="@string/title_activity_history_acitivity" >
+        </activity>
     </application>
 
 </manifest>
