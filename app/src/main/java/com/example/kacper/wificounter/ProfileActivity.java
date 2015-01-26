@@ -270,6 +270,10 @@ public class ProfileActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void HistButtonClicked(View view) {
+        Intent myIntent = new Intent(view.getContext(), HistoryAcitivity.class);
+        startActivityForResult(myIntent, 0);
 
+    }
 
 }

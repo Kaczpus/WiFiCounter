@@ -10,5 +10,6 @@
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_history_acitivity">HistoryAcitivity</string>
 
 </resources>
