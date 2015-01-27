@@ -222,10 +222,10 @@ public class ProfileActivity extends ActionBarActivity {
 
 
 
-    public void HistButtonClicked()
+    public void HistButtonClicked(View view)
     {
         Intent newIntent;
-        newIntent = new Intent(this,HistoryAcitivity.class);
+        newIntent = new Intent(this,HistoryListActivity.class);
         newIntent.putExtra("profil",profileNameIntent);
         startActivity(newIntent);
     }
@@ -300,10 +300,10 @@ public class ProfileActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void HistButtonClicked(View view) {
+    /*public void HistButtonClicked(View view) {
         Intent myIntent = new Intent(view.getContext(), HistoryAcitivity.class);
         startActivityForResult(myIntent, 0);
 
-    }
+    }*/
 
 }

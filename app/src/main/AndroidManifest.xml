@@ -30,18 +30,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
-            android:label="@string/title_activity_second" >
-        </activity>
-        <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" />
 
         <service android:name=".WifiService" />
 
         <activity
-            android:name=".HistoryAcitivity"
-            android:label="@string/title_activity_history_acitivity" >
+            android:name=".HistoryListActivity"
+            android:label="@string/title_activity_history_list"
+            android:parentActivityName=".ProfileActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kacper.wificounter.ProfileActivity" />
         </activity>
     </application>
 

@@ -41,4 +41,10 @@ public class History {
 
 
     History() {}
+
+    public History(String _date, String _time_connection)
+    {
+        this.date=_date;
+        this.time_connection=_time_connection;
+    }
 }

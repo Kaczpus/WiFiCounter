@@ -9,7 +9,9 @@
     <string name="button_send">Send</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_second">SecondActivity</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">WiFiCounter</string>
     <string name="title_activity_history_acitivity">HistoryAcitivity</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="title_activity_history_list">Profile History</string>
 
 </resources>

@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.lang.Object;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class HistoryHandler  extends DatabaseHandler{
 
@@ -57,17 +58,32 @@ public class HistoryHandler  extends DatabaseHandler{
         return dbString;
     }
 
+    public ArrayList<History> historyToArray(int profile)
+    {
+
+        ArrayList<History> array_list = new ArrayList<History>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res =  db.rawQuery("SELECT * FROM History WHERE _id_profile = " + Integer.toString(profile) + " ;",null);
+        res.moveToFirst();
+        while(res.isAfterLast() == false){
+            array_list.add(new History(res.getString(res.getColumnIndex("Date")),res.getString(res.getColumnIndex("Time_connection"))));
+
+            res.moveToNext();
+        }
+        return array_list;
+    }
+
     @Override
 
     public void onCreate(SQLiteDatabase db) {
-        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT, gssid TEXT);";
+        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(_id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT);";
        /* String history = "CREATE TABLE " + TABLE_HISTORY + "(" + COLUMN_ID + "INTEGER PRIMARY KEY " + DATE + "TEXT , "
                 + TIME_CONNECTION + " , " + " INTEGER, "
                 + " _id_profile " + " INTEGER, " + " FOREIGN KEY REFERENCES " + PROFILE_NAME + " (_id_profile) "  + " ); ";
 */
 
         db.execSQL(profile);
-        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references Profile (_id))");
+        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references  Profile  ( _id ))");
     }
 
 

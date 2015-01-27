@@ -14,14 +14,14 @@ public class ProfileHandler extends DatabaseHandler {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT, gssid TEXT);";
+        String profile =  "CREATE TABLE " + TABLE_PROFILE + "(_id INTEGER PRIMARY KEY, Profile_name TEXT, ssid TEXT);";
        /* String history = "CREATE TABLE " + TABLE_HISTORY + "(" + COLUMN_ID + "INTEGER PRIMARY KEY " + DATE + "TEXT , "
                 + TIME_CONNECTION + " , " + " INTEGER, "
                 + " _id_profile " + " INTEGER, " + " FOREIGN KEY REFERENCES " + PROFILE_NAME + " (_id_profile) "  + " ); ";
 */
 
         db.execSQL(profile);
-        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references Profile (_id))");
+        db.execSQL("create table History ( _id integer primary key, Date TEXT , Time_connection integer , _id_profile integer , foreign key(_id_profile) references  Profile  ( _id ))");
     }
 
     public ProfileHandler(Context context)
@@ -75,7 +75,7 @@ public class ProfileHandler extends DatabaseHandler {
         SQLiteDatabase db = getReadableDatabase();
         Cursor res =  db.rawQuery("SELECT * FROM" + TABLE_PROFILE + "WHERE " + PROFILE_NAME + "=\"" + profile + "\";",null);
         res.moveToFirst();
-        int wantedId = res.getInt(res.getColumnIndex("id"));
+        int wantedId = res.getInt(res.getColumnIndex("_id"));
         return wantedId;
     }
 
