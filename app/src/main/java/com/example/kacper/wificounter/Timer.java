@@ -54,7 +54,7 @@ public class Timer {
         String strMinutes = Integer.toString(minutes);
             if(strMinutes.length()<2) strMinutes = "0" + strMinutes;
 
-        return Integer.toString(day) + "-" + Integer.toString(month) + "-" + Integer.toString(year) + " " + Integer.toString(hours) + ":" + strMinutes;
+        return Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day) + " " + Integer.toString(hours) + ":" + strMinutes;
 
 
     }

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.lang.Object;
+import java.text.SimpleDateFormat;
 
 public class HistoryHandler  extends DatabaseHandler{
 
@@ -20,7 +21,10 @@ public class HistoryHandler  extends DatabaseHandler{
     public void addItem(Object object){
 
         ContentValues values = new ContentValues();
+        //SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM");
         values.put(DATE,((History) object).getDate());
+        values.put(TIME_CONNECTION,((History)object).getTime_connection());
+        values.put("_id_profile",((History)object).get_idProfile());
         SQLiteDatabase db =getWritableDatabase();
         db.insert(TABLE_HISTORY,null,values);
         db.close();

@@ -68,6 +68,14 @@ public class ProfileHandler extends DatabaseHandler {
         return dbString;
     }
 
+    public int getProfileId(String profile)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res =  db.rawQuery("SELECT * FROM" + TABLE_PROFILE + "WHERE " + PROFILE_NAME + "=\"" + profile + "\";",null);
+        res.moveToFirst();
+        int wantedId = res.getInt(res.getColumnIndex("id"));
+        return wantedId;
+    }
 
 
     @Override

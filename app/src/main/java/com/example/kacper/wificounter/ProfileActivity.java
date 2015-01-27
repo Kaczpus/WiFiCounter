@@ -32,10 +32,12 @@ public class ProfileActivity extends ActionBarActivity {
     Intent serviceIntent;
     Timer timer;
     HistoryHandler historyHandler;
+    ProfileHandler profileHandler;
+    History history;
     SharedPreferences prefs;
     String prefName = "MyPref";
     String STARTTIME = "starttime";
-
+    String profileNameIntent;
     boolean hasServiceStarted = false;
     boolean canSaveHistory;
 
@@ -54,13 +56,13 @@ public class ProfileActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         String intentProfileText = intent.getStringExtra("profile");
-
+        profileNameIntent = intent.getStringExtra("profile");
 
         setContentView(R.layout.activity_profile);
         Log.d(TAG, "ON CREATE!!!!!!!!!!!!");
         wifi = new WiFi(this);
         timer = new Timer();
-        historyHandler = new HistoryHandler(this);
+        ///historyHandler = new HistoryHandler(this);
 
 
         profileName = (TextView)findViewById(R.id.profileTextView);
@@ -73,7 +75,8 @@ public class ProfileActivity extends ActionBarActivity {
         profileName.setText(intentProfileText);
         wifiName.setText(wifi.getWiFiSSID());
 
-        defSSID = wifi.getWiFiSSID();
+
+        defSSID = "WYKOP OBRAZA PAPIEZA";
 
         if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
         {
@@ -130,6 +133,16 @@ public class ProfileActivity extends ActionBarActivity {
             if(canSaveHistory)
             {
                 Toast.makeText(getApplicationContext(), "Saving to history...", Toast.LENGTH_SHORT).show();
+                history = new History();
+                historyHandler = new HistoryHandler(this);
+                profileHandler = new ProfileHandler(this);
+                history.setDate(timer.countingStartToString());
+                history.setTime_connection(timer.ElapsedTimeToString());
+                history.set_idProfile(profileHandler.getProfileId(profileNameIntent));
+                historyHandler.addItem(history);
+
+                //i chyba tyle?
+
             }
 
             conInfo.setText("WiFI is offline");
@@ -169,7 +182,7 @@ public class ProfileActivity extends ActionBarActivity {
         startTimerText = (TextView) findViewById(R.id.timerStartText);
         timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
         wifiName.setText(wifi.getWiFiSSID());
-        defSSID = wifi.getWiFiSSID();
+        defSSID = "WYKOP OBRAZA PAPIEZA";
         if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
         {
             conInfo.setText("Connected!");

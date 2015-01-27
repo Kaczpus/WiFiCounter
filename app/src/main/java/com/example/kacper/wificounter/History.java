@@ -6,9 +6,9 @@ package com.example.kacper.wificounter;
 public class History {
 
     private int _id;
-    private  int date;
-    private int time_connection;
-
+    private  String date;
+    private String time_connection;
+    private int _idProfile;
 
 
 
@@ -20,20 +20,25 @@ public class History {
         this._id = _id;
     }
 
-    public int getTime_connection() {
+    public String getTime_connection() {
         return time_connection;
     }
 
-    public void setTime_connection(int time_connection) {
+    public void setTime_connection(String time_connection) {
         this.time_connection = time_connection;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
+
+    public void set_idProfile(int idProfile) {this._idProfile=idProfile;}
+    public int get_idProfile(){return _idProfile;}
+
+
     History() {}
 }
