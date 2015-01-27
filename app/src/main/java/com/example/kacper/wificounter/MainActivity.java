@@ -70,7 +70,7 @@ public class MainActivity extends ListActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("Adding");
-        alert.setMessage("Please enter name of your profile");
+        alert.setMessage("Please enter name of your profile and SSID");
         LayoutInflater inflater = MainActivity.this.getLayoutInflater();
         View layout = inflater.inflate(R.layout.addbuttonlayout,null);
 
