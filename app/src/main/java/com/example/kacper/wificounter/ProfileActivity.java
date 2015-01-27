@@ -222,7 +222,13 @@ public class ProfileActivity extends ActionBarActivity {
 
 
 
-
+    public void HistButtonClicked()
+    {
+        Intent newIntent;
+        newIntent = new Intent(this,HistoryAcitivity.class);
+        newIntent.putExtra("profil",profileNameIntent);
+        startActivity(newIntent);
+    }
 
 
 
