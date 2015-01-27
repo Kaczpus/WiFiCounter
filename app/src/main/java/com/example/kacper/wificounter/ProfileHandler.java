@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 /**
  * Created by Kacper on 2015-01-18.
@@ -32,6 +33,7 @@ public class ProfileHandler extends DatabaseHandler {
 
         ContentValues values = new ContentValues();
         values.put(PROFILE_NAME, ((Profile) object).get_profilname());
+        values.put(SSID,((Profile)object).getSsid());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_PROFILE, null, values);
         db.close();
@@ -75,6 +77,16 @@ public class ProfileHandler extends DatabaseHandler {
         res.moveToFirst();
         int wantedId = res.getInt(res.getColumnIndex("id"));
         return wantedId;
+    }
+
+    public String getProfileSSID(String profile)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res =  db.rawQuery("SELECT * FROM" + TABLE_PROFILE + "WHERE " + PROFILE_NAME + "=\"" + profile + "\";",null);
+        res.moveToFirst();
+        String wantedSSID = res.getString(res.getColumnIndex("ssid"));
+
+        return wantedSSID;
     }
 
 

@@ -18,6 +18,7 @@ public  abstract class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_ID = " _id ";
     public static final String TABLE_PROFILE = " Profile ";
     public static final String PROFILE_NAME = " Profile_name ";
+    public static final String SSID = " ssid ";
     public static final String TABLE_HISTORY = " History ";
     public static final String DATE = " Date ";
     public static final String TIME_CONNECTION = " Time_connection ";

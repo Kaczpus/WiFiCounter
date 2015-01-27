@@ -53,7 +53,7 @@ public class MainActivity extends ListActivity {
                     //int a = getSelectedItemPosition();
                     String profileName =  lv.getItemAtPosition(position).toString();
                     myIntent.putExtra("profile",profileName);
-
+                    myIntent.putExtra("ssid",ProfileHandler.getProfileSSID(profileName));//
                     startActivity(myIntent);
 
             }
@@ -91,6 +91,7 @@ public class MainActivity extends ListActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String value = input.getText().toString();
                 Profile profile = new Profile(value);
+                profile.setSsid(ourwifi.getText().toString());
                 ProfileHandler.addItem(profile);
                 result.add(profile.get_profilname());
                 displayResultList();

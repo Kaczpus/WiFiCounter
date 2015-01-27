@@ -56,6 +56,8 @@ public class ProfileActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         String intentProfileText = intent.getStringExtra("profile");
+        defSSID = intent.getStringExtra("ssid");
+        //Toast.makeText(getApplicationContext(), intent.getStringExtra("ssid"), Toast.LENGTH_SHORT).show();
         profileNameIntent = intent.getStringExtra("profile");
 
         setContentView(R.layout.activity_profile);
@@ -76,7 +78,7 @@ public class ProfileActivity extends ActionBarActivity {
         wifiName.setText(wifi.getWiFiSSID());
 
 
-        defSSID = "WYKOP OBRAZA PAPIEZA";
+        //defSSID = "WYKOP OBRAZA PAPIEZA";
 
         if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
         {
@@ -182,7 +184,7 @@ public class ProfileActivity extends ActionBarActivity {
         startTimerText = (TextView) findViewById(R.id.timerStartText);
         timeElapsedText = (TextView) findViewById(R.id.TimeElapsed);
         wifiName.setText(wifi.getWiFiSSID());
-        defSSID = "WYKOP OBRAZA PAPIEZA";
+        //defSSID = "WYKOP OBRAZA PAPIEZA";
         if(defSSID.equals(wifi.getWiFiSSID()) && wifi.isWiFiConnected())
         {
             conInfo.setText("Connected!");
